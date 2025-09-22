@@ -8,7 +8,7 @@ import (
 	"github.com/destinyhover/microservices/order/config"
 	"github.com/destinyhover/microservices/order/internal/adapters/db"
 	gserver "github.com/destinyhover/microservices/order/internal/adapters/grpc"
-	app "github.com/destinyhover/microservices/order/internal/application/core/api" // <-- твоя реализация APIPort
+	app "github.com/destinyhover/microservices/order/internal/application/core/api"
 	"github.com/destinyhover/microservices/order/internal/application/fakes"
 )
 
