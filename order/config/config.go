@@ -1,7 +1,7 @@
 package config
 
 import (
-	"log"
+	"log/slog"
 	"os"
 	"strconv"
 )
@@ -9,7 +9,7 @@ import (
 func getEnvValue(key string) string {
 	v := os.Getenv(key)
 	if v == "" {
-		log.Fatalf("%s environment variable is missing.", key)
+		slog.Error("environment variable is missing.", "key", key)
 	}
 
 	return v
@@ -29,7 +29,8 @@ func GetApplicationPort() int {
 	str := getEnvValue("APPLICATION_PORT")
 	port, err := strconv.Atoi(str)
 	if err != nil {
-		log.Fatalf("port: %s is invalid", str)
+		slog.Error("port is invalid", "port", str)
+
 	}
 	return port
 }
