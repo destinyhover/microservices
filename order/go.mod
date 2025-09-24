@@ -13,6 +13,7 @@ require (
 )
 
 require (
+	github.com/destinyhover/microservices-proto/golang/payment v0.0.0-20250924085832-8bc0ea4afbfb
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
