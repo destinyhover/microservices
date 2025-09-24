@@ -8,8 +8,8 @@ import (
 	"github.com/destinyhover/microservices/order/config"
 	"github.com/destinyhover/microservices/order/internal/adapters/db"
 	gserver "github.com/destinyhover/microservices/order/internal/adapters/grpc"
+	"github.com/destinyhover/microservices/order/internal/adapters/payment"
 	app "github.com/destinyhover/microservices/order/internal/application/core/api"
-	"github.com/destinyhover/microservices/order/internal/application/fakes"
 )
 
 func main() {
@@ -22,9 +22,16 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	pp := fakes.NoopPayment{}
+
+	pPort := config.GetPaymentSourceURL()
+	pAdapter, err := payment.NewAdapter(pPort)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	// 1) Собираем application-сервис, реализующий ports.APIPort
-	api := app.NewApplication(dbAdapter, pp)
+	api := app.NewApplication(dbAdapter, pAdapter)
 
 	// 2) Берём порт из окружения (APPLICATION_PORT)
 	port := config.GetApplicationPort()

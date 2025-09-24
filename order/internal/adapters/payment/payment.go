@@ -27,7 +27,7 @@ func NewAdapter(paymentServiceURL string) (*Adapter, error) {
 		return nil, err
 	}
 
-	return &Adapter{client: pb.NewPaymentClient(conn)}, nil
+	return &Adapter{client: pb.NewPaymentClient(conn), conn: conn}, nil
 }
 
 func (a *Adapter) Close() error {
