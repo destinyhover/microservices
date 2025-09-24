@@ -11,7 +11,7 @@ type Payment struct {
 	CreatedAt  int64  `json:"created_at"`
 }
 
-func NewPayment(id int64, cusid int64, orderID int64, totalPrice int32) Payment {
-	return Payment{ID: id, CustomerID: cusid, Status: "Pending",
+func NewPayment(customerID int64, orderID int64, totalPrice int32) Payment {
+	return Payment{CustomerID: customerID, Status: "Pending",
 		OrderID: orderID, TotalPrice: totalPrice, CreatedAt: time.Now().Unix()}
 }
