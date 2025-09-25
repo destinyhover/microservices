@@ -24,6 +24,14 @@ require (
 	google.golang.org/protobuf v1.36.9 // indirect
 )
 
+replace (
+        go.opentelemetry.io/otel => github.com/open-telemetry/opentelemetry-go v1.38.0
+        go.opentelemetry.io/otel/exporters/otlp/otlptrace => github.com/open-telemetry/opentelemetry-go/exporters/otlp/otlptrace v1.38.0
+        go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc => github.com/open-telemetry/opentelemetry-go/exporters/otlp/otlptrace/otlptracegrpc v1.38.0
+        go.opentelemetry.io/otel/metric => github.com/open-telemetry/opentelemetry-go/metric v1.38.0
+        go.opentelemetry.io/otel/sdk => github.com/open-telemetry/opentelemetry-go/sdk v1.38.0
+)
+
 require (
 	github.com/destinyhover/microservices-proto/golang/payment v0.0.0-20250924085832-8bc0ea4afbfb
 	github.com/jinzhu/inflection v1.0.0 // indirect
