@@ -34,3 +34,24 @@ func GetApplicationPort() int {
 	}
 	return port
 }
+
+// Tracing variabales
+func GetOLTPEndpoint() string {
+	if endp, ok := os.LookupEnv("OTEL_EXPORTER_OTLP_ENDPOINT"); ok {
+		return endp
+	}
+	return ""
+}
+func IsOTLPInsecure() bool {
+	v := os.Getenv("OTEL_EXPORTER_OTLP_INSECURE")
+	if v == "" {
+		return true
+	}
+
+	ins, err := strconv.ParseBool(v)
+	if err != nil {
+		slog.Error("Cannot parse isotlpinsecure()", "err", err)
+		return false
+	}
+	return ins
+}

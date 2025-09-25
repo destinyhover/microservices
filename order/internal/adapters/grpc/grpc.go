@@ -39,9 +39,5 @@ func (a Adapter) Get(ctx context.Context, request *order.GetOrderRequest) (*orde
 			Quantity:    v.Quantity,
 		})
 	}
-
-	if err != nil {
-		return nil, err
-	}
 	return &order.GetOrderResponse{UserId: result.CustomerId, OrderItems: orderItems}, nil
 }
