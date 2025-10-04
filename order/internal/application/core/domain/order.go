@@ -9,16 +9,16 @@ type OrderItem struct {
 }
 type Order struct {
 	ID         int64       `json:"id"`
-	CustomerId int64       `json:"customer_id"`
+	CustomerID int64       `json:"customer_id"`
 	Status     string      `json:"status"`
 	OrderItems []OrderItem `json:"order_items"`
 	CreatedAt  int64       `json:"created_at"`
 }
 
-func NewOrder(customerId int64, orderItems []OrderItem) Order {
+func NewOrder(customerID int64, orderItems []OrderItem) Order {
 	return Order{
 		CreatedAt:  time.Now().Unix(),
-		CustomerId: customerId,
+		CustomerID: customerID,
 		Status:     "Pending",
 		OrderItems: orderItems,
 	}

@@ -36,16 +36,12 @@ func (a Application) PlaceOrder(ctx context.Context, order domain.Order) (domain
 		}
 		badReq := &errdetails.BadRequest{}
 		badReq.FieldViolations = append(badReq.FieldViolations, fieldErr)
-		orderStatus := status.New(codes.InvalidArgument, "prder creation failde")
+		orderStatus := status.New(codes.InvalidArgument, "order creation failed")
 		statusWithDetails, _ := orderStatus.WithDetails(badReq)
 		return domain.Order{}, statusWithDetails.Err()
 	}
 	return order, nil
 }
 func (a Application) GetOrder(ctx context.Context, id int64) (domain.Order, error) {
-	order, err := a.db.Get(ctx, id)
-	if err != nil {
-		return domain.Order{}, err
-	}
-	return order, nil
+	return a.db.Get(ctx, id)
 }

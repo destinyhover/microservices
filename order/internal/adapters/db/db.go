@@ -19,7 +19,7 @@ type OrderItem struct {
 }
 type Order struct {
 	gorm.Model
-	CustomerId int64
+	CustomerID int64
 	Status     string
 	OrderItems []OrderItem
 }
@@ -37,7 +37,7 @@ func (a Adapter) Get(ctx context.Context, id int64) (domain.Order, error) {
 			Quantity: v.Quantity})
 	}
 
-	result := domain.Order{ID: int64(orderEnt.ID), CustomerId: orderEnt.CustomerId, Status: orderEnt.Status,
+	result := domain.Order{ID: int64(orderEnt.ID), CustomerID: orderEnt.CustomerID, Status: orderEnt.Status,
 		OrderItems: orderItems, CreatedAt: orderEnt.CreatedAt.Unix()}
 	return result, res.Error
 }
@@ -52,7 +52,7 @@ func (a Adapter) Save(ctx context.Context, order *domain.Order) error {
 		})
 	}
 	orderEnt := Order{
-		CustomerId: order.CustomerId,
+		CustomerID: order.CustomerID,
 		Status:     order.Status,
 		OrderItems: orderItems,
 	}
