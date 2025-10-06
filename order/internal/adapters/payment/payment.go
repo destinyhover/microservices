@@ -41,8 +41,8 @@ func (a *Adapter) Charge(ctx context.Context, order *domain.Order) error {
 	cctx, cancel := context.WithTimeout(ctx, 3*time.Second)
 	defer cancel()
 	_, err := a.client.Create(cctx, &pb.PaymentCreateRequest{
-		UserID:     order.CustomerID,
-		OrderID:    order.ID,
+		UserId:     order.CustomerID,
+		OrderId:    order.ID,
 		TotalPrice: order.TotalPrice(),
 	})
 	if err != nil {

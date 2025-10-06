@@ -18,16 +18,16 @@ func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) 
 			Quantity:    v.Quantity,
 		})
 	}
-	newOrder := domain.NewOrder(request.UserID, orderItems)
+	newOrder := domain.NewOrder(request.UserId, orderItems)
 	result, err := a.api.PlaceOrder(ctx, newOrder)
 	if err != nil {
 		return nil, err
 	}
-	return &order.GetOrderResponse{UserID: result.ID}, nil
+	return &order.GetOrderResponse{UserId: result.ID}, nil
 }
 
 func (a Adapter) Get(ctx context.Context, request *order.GetOrderRequest) (*order.GetOrderResponse, error) {
-	result, err := a.api.GetOrder(ctx, request.OrderID)
+	result, err := a.api.GetOrder(ctx, request.OrderId)
 	if err != nil {
 		return nil, err
 	}
@@ -39,5 +39,5 @@ func (a Adapter) Get(ctx context.Context, request *order.GetOrderRequest) (*orde
 			Quantity:    v.Quantity,
 		})
 	}
-	return &order.GetOrderResponse{UserID: result.CustomerID, OrderItems: orderItems}, nil
+	return &order.GetOrderResponse{UserId: result.CustomerID, OrderItems: orderItems}, nil
 }
