@@ -5,6 +5,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"log"
 	"log/slog"
 	"testing"
 	"time"
@@ -58,4 +59,27 @@ func (o *OrderDBTestSuit) Test_Sould_Save_Order() {
 	o.Nil(err)
 	saveErr := adapter.Save(context.Background(), &domain.Order{})
 	o.Nil(saveErr)
+}
+
+func (o *OrderDBTestSuit) TearDownSuite() {
+	if o.container != nil {
+		_ = o.container.Terminate(context.Background())
+	}
+}
+func (o *OrderDBTestSuit) Test_Should_Get_Order() {
+	adap, err := NewAdapter(o.DataSourceURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ord := domain.NewOrder(53, []domain.OrderItem{})
+	err = adap.Save(o.T().Context(), &ord)
+	if err != nil {
+		log.Fatal(err)
+	}
+	get, err := adap.Get(o.T().Context(), ord.ID)
+	if err != nil {
+		log.Fatal(err)
+	}
+	o.Equal(int64(53), get.CustomerID)
 }

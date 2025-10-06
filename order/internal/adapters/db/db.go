@@ -59,8 +59,6 @@ func (a Adapter) Save(ctx context.Context, order *domain.Order) error {
 
 	res := a.db.WithContext(ctx).Create(&orderEnt)
 	if res.Error != nil {
-		order.ID = int64(orderEnt.ID)
-		order.CreatedAt = orderEnt.CreatedAt.Unix()
 		return res.Error
 	}
 	order.ID = int64(orderEnt.ID)
