@@ -30,7 +30,7 @@ func (a Adapter) Run() {
 	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", a.port))
 	if err != nil {
 		slog.Error("failed to listen", "port", a.port, "err", err)
-		return
+		os.Exit(1)
 	}
 
 	grpcServer := grpc.NewServer(grpc.StatsHandler(otelgrpc.NewServerHandler()))

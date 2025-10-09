@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"os"
 	"strconv"
@@ -26,8 +25,8 @@ func main() {
 		Insecure:       config.IsOTLPInsecure(),
 	})
 	if err != nil {
-		fmt.Println(err)
-		return
+		slog.Error("failed to init telemetry", "err", err)
+		os.Exit(1)
 	}
 	defer func() {
 		if err := shutdown(context.Background()); err != nil {
@@ -38,16 +37,16 @@ func main() {
 
 	dbAdapter, err := db.NewAdapter(config.GetDataSourceURL())
 	if err != nil {
-		fmt.Println(err)
-		return
+		slog.Error("failed to init db Adapter", "err", err)
+		os.Exit(1)
 	}
 
 	api := app.NewApplication(dbAdapter)
 
 	port, err := strconv.Atoi(config.GetPaymentPort())
 	if err != nil {
-		fmt.Println(err)
-		return
+		slog.Error("failed to conv port", "err", err)
+		os.Exit(1)
 	}
 
 	server := gserver.NewAdapter(api, port)
