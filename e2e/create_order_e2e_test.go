@@ -67,7 +67,7 @@ func (c *CreateOrderTestSuite) Test_Should_Create_Order() {
 
 func (c *CreateOrderTestSuite) TearDownSuite() {
 	c.Require().NoError(
-		c.stack.Down(context.Background(), compose.RemoveVolumes(true)),
+		c.stack.Down(context.Background(), compose.RemoveVolumes(true), compose.RemoveOrphans(true), compose.RemoveImagesLocal),
 	)
 }
 
